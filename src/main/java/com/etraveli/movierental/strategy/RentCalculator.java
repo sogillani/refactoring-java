@@ -20,6 +20,13 @@ public class RentCalculator {
         bonusStrategies.put(MovieCode.NEW, this::newMovieBonusPointsCalculator);
     }
 
+    /**
+     * Calculate the rental fee for a movie based on its code and rental duration
+     * @param movieCode defines the movie type
+     * @param dayRented The number of days movie was rented
+     * @return the calculated rental free for the movie
+     * @throws MovieCodeNotFoundException if an unsupported movie code is encountered
+     */
     public double calculateRent(MovieCode movieCode, int dayRented) {
         RentalStrategy strategy = rentalStrategies.get(movieCode);
         if (strategy == null) {
@@ -28,6 +35,12 @@ public class RentCalculator {
         return strategy.calculateRent(dayRented);
     }
 
+    /**
+     * Calculates the bonus points awarded for renting a movie based on its code and rental duration
+     * @param movieCode defines the movie type
+     * @param dayRented The number of days movie was rented
+     * @return The calculated bonus points awarded for renting the movie.
+     */
     public int calculateBonus(MovieCode movieCode, int dayRented) {
         BonusPointsStrategy bonusPointsStrategy = bonusStrategies.get(movieCode);
         if (bonusPointsStrategy == null) {
