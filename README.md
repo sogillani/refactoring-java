@@ -17,6 +17,7 @@ mvn clean install
 
 java -jar target/movierental-0.0.1-SNAPSHOT.jar
 ```
+
 ### OpenAPI Specification
 The OpenAPI specification is available at:
 ```
@@ -30,6 +31,24 @@ Use OpenAPI Spec for E2E Testing and Documentation of API
   - Go to "File" -> "Import".
   - Select the OpenAPI specification file openapi.yaml.
   - Postman will generate collections and requests based on the spec.
+
+### Strategy Pattern for Rent and Bonus Points Calculation
+
+This project utilizes the Strategy Pattern to implement flexible rent and bonus point calculations for different movies types identified with MovieCode. This allows for:
+- Define separate calculation strategies for each movie type.
+- Easy addition of new movie codes with custom strategies in the future.
+
+We have two functional interfaces for rent and bonus calculation 
+- RentalStrategy
+- BonusPointsStrategy
+
+#### Adding New Movie Codes:
+
+In the future, when you introduce a new movie code, you can simply:
+- Add a new code to the MovieCode enum.
+- Create a corresponding implementation of functional interface RentalStrategy for new movie code with rent logic.
+- Add new functional interface implementation in RentCalculator->rentalStrategies enum map. RentCalculator will start computing the rent for new movie code.
+
 
 ### Liquibase Schema
 Liquibase chosen for movie and customer data persistence
