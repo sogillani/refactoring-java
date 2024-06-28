@@ -17,9 +17,24 @@ mvn clean install
 
 java -jar target/movierental-0.0.1-SNAPSHOT.jar
 ```
+### OpenAPI Specification
+The OpenAPI specification is available at:
+```
+src/main/resources/static/openapi.yaml
+```
+Use OpenAPI Spec for E2E Testing and Documentation of API
+
+#### Manual Testing
+- Import to Postman
+  - Open Postman.
+  - Go to "File" -> "Import".
+  - Select the OpenAPI specification file openapi.yaml.
+  - Postman will generate collections and requests based on the spec.
 
 ### Liquibase Schema
 Liquibase chosen for movie and customer data persistence
 Ensures data survives application restarts, maintains data integrity, and scales better than an in-memory HashMap, and simplifies future database schema changes.
+
+
 
 

@@ -5,6 +5,7 @@ import com.etraveli.movierental.dto.RentalStatementResponse;
 import com.etraveli.movierental.service.RentalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,8 @@ public class RentalController {
     }
 
     @PostMapping("/generate-statement")
-    public RentalStatementResponse generateStatement(@RequestBody InformationSlipRequest informationSlipRequest) {
+    public ResponseEntity<RentalStatementResponse> generateStatement(@RequestBody InformationSlipRequest informationSlipRequest) {
         LOG.debug("Information Slip Request: {}", informationSlipRequest);
-        return new RentalStatementResponse(rentalService.createInformationSlip(informationSlipRequest));
+        return ResponseEntity.ok(new RentalStatementResponse(rentalService.createInformationSlip(informationSlipRequest)));
     }
 }

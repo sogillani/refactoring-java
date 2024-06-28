@@ -16,8 +16,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MovieNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleMovieCodeNotFoundException(MovieNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleMovieNotFoundException(MovieNotFoundException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

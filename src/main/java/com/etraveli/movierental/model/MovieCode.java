@@ -7,7 +7,7 @@ public enum MovieCode {
 
     private final String codeValue;
 
-    private MovieCode(String codeValue) {
+    MovieCode(String codeValue) {
         this.codeValue = codeValue;
     }
 
