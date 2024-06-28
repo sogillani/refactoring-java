@@ -22,7 +22,7 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
-    @PostMapping("/generate-statement")
+    @PostMapping("/statement")
     public ResponseEntity<RentalStatementResponse> generateStatement(@RequestBody InformationSlipRequest informationSlipRequest) {
         LOG.debug("Information Slip Request: {}", informationSlipRequest);
         return ResponseEntity.ok(new RentalStatementResponse(rentalService.createInformationSlip(informationSlipRequest)));

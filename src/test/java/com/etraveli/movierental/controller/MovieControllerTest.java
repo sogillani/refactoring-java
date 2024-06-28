@@ -83,7 +83,7 @@ class MovieControllerTest {
         mockMvc.perform(post("/api/v1/movies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newMovieDTO)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value("New Movie"));
     }
 
@@ -101,6 +101,6 @@ class MovieControllerTest {
     @Test
     void testDeleteMovie() throws Exception {
         mockMvc.perform(delete("/api/v1/movies/" + movie.getId()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

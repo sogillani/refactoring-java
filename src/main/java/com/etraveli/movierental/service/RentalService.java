@@ -40,7 +40,7 @@ public class RentalService {
                 .map(RentalResult::rentInfo)
                 .collect(Collectors.joining(System.lineSeparator()));
 
-        return String.format(Locale.US, "Rental Record for %s%n%s%nAmount owed is %.1f%nYou earned %d frequent points",
+        return String.format(Locale.US, "Rental Record for %s%n%s%nAmount owed is %.1f%nYou earned %d frequent points%n",
                 informationSlipRequest.customer().name(),
                 joinedRentStatement,
                 totalRent,

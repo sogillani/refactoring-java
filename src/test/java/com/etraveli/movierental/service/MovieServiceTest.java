@@ -91,6 +91,7 @@ class MovieServiceTest {
 
     @Test
     void testDeleteMovie() {
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
         movieService.deleteMovie(1L);
         verify(movieRepository, times(1)).deleteById(1L);
     }

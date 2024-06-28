@@ -104,7 +104,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /api/v1/rentals/generate-statement:
+  /api/v1/rentals/statement:
     post:
       summary: Generate rental information slip for the customer
       requestBody:
