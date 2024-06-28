@@ -20,6 +20,22 @@ public class RentCalculator {
         bonusStrategies.put(MovieCode.NEW, this::newMovieBonusPointsCalculator);
     }
 
+    public double calculateRent(MovieCode movieCode, int dayRented) {
+        RentalStrategy strategy = rentalStrategies.get(movieCode);
+        if (strategy == null) {
+            throw new MovieCodeNotFoundException("Unknown movie code: " + movieCode);
+        }
+        return strategy.calculateRent(dayRented);
+    }
+
+    public int calculateBonus(MovieCode movieCode, int dayRented) {
+        BonusPointsStrategy bonusPointsStrategy = bonusStrategies.get(movieCode);
+        if (bonusPointsStrategy == null) {
+            return 0;
+        }
+        return bonusPointsStrategy.bonusPoints(dayRented);
+    }
+
     private double regularMovieRentCalculator(int daysRented) {
         double rent = 2;
         if (daysRented > 2) {
@@ -45,21 +61,5 @@ public class RentCalculator {
             return 1;
         }
         return 0;
-    }
-
-    public double calculateRent(MovieCode movieCode, int dayRented) {
-        RentalStrategy strategy = rentalStrategies.get(movieCode);
-        if (strategy == null) {
-            throw new MovieCodeNotFoundException("Unknown movie code: " + movieCode);
-        }
-        return strategy.calculateRent(dayRented);
-    }
-
-    public int calculateBonus(MovieCode movieCode, int dayRented) {
-        BonusPointsStrategy bonusPointsStrategy = bonusStrategies.get(movieCode);
-        if (bonusPointsStrategy == null) {
-            return 0;
-        }
-        return bonusPointsStrategy.bonusPoints(dayRented);
     }
 }
