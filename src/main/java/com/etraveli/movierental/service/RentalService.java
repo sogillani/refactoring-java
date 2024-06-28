@@ -17,9 +17,11 @@ public class RentalService {
     private static final Logger LOG = LoggerFactory.getLogger(RentalService.class);
 
     private final MovieService movieService;
+    private final RentCalculator rentCalculator;
 
-    public RentalService(MovieService movieService) {
+    public RentalService(MovieService movieService, RentCalculator rentCalculator) {
         this.movieService = movieService;
+        this.rentCalculator = rentCalculator;
     }
 
     public String createInformationSlip(InformationSlipRequest informationSlipRequest) {
@@ -52,9 +54,9 @@ public class RentalService {
                 .map(movieRentalInfo -> {
                     Movie movie = movieService.findMovieByMovieId(movieRentalInfo.movieId());
 
-                    double rent = RentCalculator.calculateRent(movie.getMovieCode(), movieRentalInfo.days());
+                    double rent = rentCalculator.calculateRent(movie.getMovieCode(), movieRentalInfo.days());
 
-                    int bonusPoints = RentCalculator.calculateBonus(movie.getMovieCode(), movieRentalInfo.days());
+                    int bonusPoints = rentCalculator.calculateBonus(movie.getMovieCode(), movieRentalInfo.days());
 
                     String rentInfo = String.format(Locale.US, "\t%s\t%.1f", movie.getTitle(), rent);
 
