@@ -18,5 +18,8 @@ mvn clean install
 java -jar target/movierental-0.0.1-SNAPSHOT.jar
 ```
 
+### Liquibase Schema
+Liquibase chosen for movie and customer data persistence
+Ensures data survives application restarts, maintains data integrity, and scales better than an in-memory HashMap, and simplifies future database schema changes.
 
 
