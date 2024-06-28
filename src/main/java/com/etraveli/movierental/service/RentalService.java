@@ -18,7 +18,7 @@ public class RentalService {
 
     private final MovieService movieService;
 
-    RentalService(MovieService movieService) {
+    public RentalService(MovieService movieService) {
         this.movieService = movieService;
     }
 
@@ -47,7 +47,7 @@ public class RentalService {
                 bonusPoints + frequentEnterPoints);
     }
 
-    public List<RentalResult> createRentalResult(InformationSlipRequest informationSlipRequest) {
+    private List<RentalResult> createRentalResult(InformationSlipRequest informationSlipRequest) {
         return informationSlipRequest.movieRentals().stream()
                 .map(movieRentalInfo -> {
                     Movie movie = movieService.findMovieByMovieId(movieRentalInfo.movieId());

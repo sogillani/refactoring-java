@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller handles rental information slip for rented movies
+ */
 @RestController
 @RequestMapping("/api/v1/rentals")
 public class RentalController {
@@ -22,6 +25,11 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
+    /**
+     * Generate the rental information slip for rented movies
+     * @param informationSlipRequest object with rented movies and customer name
+     * @return A {@link RentalStatementResponse} object with rented movies information which contains total rent and earned points
+     */
     @PostMapping("/statement")
     public ResponseEntity<RentalStatementResponse> generateStatement(@RequestBody InformationSlipRequest informationSlipRequest) {
         LOG.debug("Information Slip Request: {}", informationSlipRequest);
