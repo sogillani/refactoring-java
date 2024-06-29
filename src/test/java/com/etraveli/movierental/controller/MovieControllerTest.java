@@ -107,7 +107,8 @@ class MovieControllerTest {
         mockMvc.perform(post("/api/v1/movies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newMovieDTO)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.statusCode").value(1002));
     }
 
     @Test
@@ -122,8 +123,26 @@ class MovieControllerTest {
     }
 
     @Test
+    void testUpdateMovieWithInvalidId() throws Exception {
+        movieDTO.setTitle("Updated Title");
+
+        mockMvc.perform(put("/api/v1/movies/" + 100)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(movieDTO)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode").value(1003));
+    }
+
+    @Test
     void testDeleteMovie() throws Exception {
         mockMvc.perform(delete("/api/v1/movies/" + movie.getId()))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testDeleteMovieWithInvalidId() throws Exception {
+        mockMvc.perform(delete("/api/v1/movies/" + 100))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode").value(1003));
     }
 }
