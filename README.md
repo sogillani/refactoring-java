@@ -18,6 +18,22 @@ mvn clean install
 java -jar target/movierental-0.0.1-SNAPSHOT.jar
 ```
 
+#### curl command for quick test
+```bash
+curl --location 'localhost:8080/api/v1/rentals/statement' \                                                                                                                                                                      ─╯
+--header 'Content-Type: application/json' \
+--data '{
+  "customer": {
+    "name": "C. U. Stomer"
+  },
+  "movieRentals": [
+    { "movieId": "F001", "days": 3},
+    { "movieId": "F002", "days": 1 }
+  ]
+}' | jq '.statement' | sed -e 's/\\n/\n/g' -e 's/\\t/\t/g'
+
+```
+
 ### OpenAPI Specification
 The OpenAPI specification is available at:
 ```
