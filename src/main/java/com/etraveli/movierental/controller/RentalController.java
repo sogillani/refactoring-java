@@ -1,7 +1,7 @@
 package com.etraveli.movierental.controller;
 
 import com.etraveli.movierental.dto.InformationSlipRequest;
-import com.etraveli.movierental.dto.RentalStatementResponse;
+import com.etraveli.movierental.dto.response.RentalStatementResponse;
 import com.etraveli.movierental.service.RentalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

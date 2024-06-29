@@ -1,4 +1,4 @@
-package com.etraveli.movierental.dto;
+package com.etraveli.movierental.dto.response;
 
 public record RentalStatementResponse(String statement) {
 }

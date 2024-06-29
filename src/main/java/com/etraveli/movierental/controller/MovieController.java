@@ -1,7 +1,7 @@
 package com.etraveli.movierental.controller;
 
 import com.etraveli.movierental.dto.MovieDTO;
-import com.etraveli.movierental.dto.MovieListResponse;
+import com.etraveli.movierental.dto.response.MovieListResponse;
 import com.etraveli.movierental.exception.MovieNotFoundException;
 import com.etraveli.movierental.service.MovieService;
 import org.slf4j.Logger;
