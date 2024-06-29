@@ -1,5 +1,8 @@
 package com.etraveli.movierental.model;
 
+import com.etraveli.movierental.exception.ErrorCode;
+import com.etraveli.movierental.exception.MovieCodeNotFoundException;
+
 public enum MovieCode {
     REGULAR("regular"),
     NEW("new"),
@@ -21,6 +24,6 @@ public enum MovieCode {
                 return movieCode;
             }
         }
-        throw new IllegalArgumentException("Invalid movie code: " + code);
+        throw new MovieCodeNotFoundException("Invalid movie code: " + code, ErrorCode.MOVIE_CODE_NOT_FOUND);
     }
 }

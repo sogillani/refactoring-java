@@ -44,4 +44,20 @@ class RentalControllerTest {
                 .andExpect(jsonPath("$.statement").value("Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n"));
 
     }
+
+    @Test
+    void testGenerateStatementWithInvalidMovieCode() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO("C. U. Stomer");
+        List<MovieRentalInfo> movieRentalInfos = List.of(new MovieRentalInfo("F001", 3),
+                new MovieRentalInfo("F019", 1));
+        InformationSlipRequest informationSlipRequest = new InformationSlipRequest(customerDTO, movieRentalInfos);
+
+        mockMvc.perform(post("/api/v1/rentals/statement")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(informationSlipRequest)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode").value(1001))
+                .andExpect(jsonPath("$.message").value("Movie Id not found"));
+
+    }
 }

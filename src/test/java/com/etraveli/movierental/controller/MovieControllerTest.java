@@ -72,6 +72,14 @@ class MovieControllerTest {
     }
 
     @Test
+    void testGetMovieByIdWithInvalidId() throws Exception {
+        mockMvc.perform(get("/api/v1/movies/" + 100))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode").value(1003))
+                .andExpect(jsonPath("$.message").value("Movie not found"));
+    }
+
+    @Test
     void testCreateMovie() throws Exception {
         MovieDTO newMovieDTO = new MovieDTO();
         newMovieDTO.setMovieId("F002");
@@ -85,6 +93,21 @@ class MovieControllerTest {
                         .content(objectMapper.writeValueAsString(newMovieDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value("New Movie"));
+    }
+
+    @Test
+    void testCreateMovieWithInvalidMovieCode() throws Exception {
+        MovieDTO newMovieDTO = new MovieDTO();
+        newMovieDTO.setMovieId("F002");
+        newMovieDTO.setCode("new_release");
+        newMovieDTO.setTitle("New Movie");
+        newMovieDTO.setGenre("Comedy");
+        newMovieDTO.setReleaseYear(2022);
+
+        mockMvc.perform(post("/api/v1/movies")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newMovieDTO)))
+                .andExpect(status().isBadRequest());
     }
 
     @Test

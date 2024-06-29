@@ -1,4 +1,4 @@
-package com.etraveli.movierental.strategy;
+package com.etraveli.movierental.strategy.function;
 
 @FunctionalInterface
 public interface BonusPointsStrategy {

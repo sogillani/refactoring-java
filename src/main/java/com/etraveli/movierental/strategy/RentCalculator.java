@@ -1,7 +1,10 @@
 package com.etraveli.movierental.strategy;
 
+import com.etraveli.movierental.exception.ErrorCode;
 import com.etraveli.movierental.exception.MovieCodeNotFoundException;
 import com.etraveli.movierental.model.MovieCode;
+import com.etraveli.movierental.strategy.function.BonusPointsStrategy;
+import com.etraveli.movierental.strategy.function.RentalStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumMap;
@@ -30,7 +33,7 @@ public class RentCalculator {
     public double calculateRent(MovieCode movieCode, int dayRented) {
         RentalStrategy strategy = rentalStrategies.get(movieCode);
         if (strategy == null) {
-            throw new MovieCodeNotFoundException("Unknown movie code: " + movieCode);
+            throw new MovieCodeNotFoundException("Unknown movie code: " + movieCode, ErrorCode.MOVIE_CODE_NOT_FOUND);
         }
         return strategy.calculateRent(dayRented);
     }

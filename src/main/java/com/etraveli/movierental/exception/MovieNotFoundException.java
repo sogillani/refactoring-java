@@ -1,7 +1,14 @@
 package com.etraveli.movierental.exception;
 
 public class MovieNotFoundException extends RuntimeException {
-    public MovieNotFoundException(String message) {
+    private final ErrorCode errorCode;
+
+    public MovieNotFoundException(String message, ErrorCode errorCode) {
         super(message);
+        this.errorCode = errorCode;
+    }
+
+    public ErrorCode getErrorCode() {
+        return errorCode;
     }
 }
