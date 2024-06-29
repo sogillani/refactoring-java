@@ -1,0 +1,177 @@
+openapi: 3.0.1
+info:
+  title: Movie Rental Service API
+  description: API for managing movie rentals
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/v1/movies:
+    get:
+      summary: Get all movies
+      responses:
+        '200':
+          description: List of movies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieList'
+
+    post:
+      summary: Create a new movie
+      requestBody:
+        description: Movie object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+      responses:
+        '201':
+          description: Movie created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+  /api/v1/movies/{id}:
+    get:
+      summary: Get a movie by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Movie retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '404':
+          description: Movie not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  delete:
+    summary: Delete a movie
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    responses:
+      '204':
+        description: Movie deleted successfully
+      '404':
+        description: Movie not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Update a movie
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Movie object to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+      responses:
+        '200':
+          description: Movie updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '404':
+          description: Movie not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/rentals/statement:
+    post:
+      summary: Generate rental information slip for the customer
+      requestBody:
+        description: Information slip request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+
+components:
+  schemas:
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        movieId:
+          type: string
+          example: F001
+        title:
+          type: string
+          example: Inception
+        code:
+          type: string
+          example: NEW
+        genre:
+          type: string
+          example: Action
+        releaseYear:
+          type: integer
+          example: 2010
+    MovieList:
+      type: object
+      properties:
+        movies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+    Customer:
+        type: object
+        properties:
+          name:
+            type: string
+    MovieRentals:
+      type: object
+      properties:
+        movieId:
+          type: string
+          example: F001
+        days:
+          type: integer
+    InformationSlipRequest:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        movieRentals:
+          type: array
+          items:
+            $ref: '#/components/schemas/MovieRentals'
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 404
+        message:
+          type: string

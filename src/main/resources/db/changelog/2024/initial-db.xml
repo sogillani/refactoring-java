@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="omer">
+        <createTable tableName="movie">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="movie_id" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="movie_code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="release_year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert_initial_movies" author="omer">
+        <sql>
+            INSERT INTO movie (movie_id, movie_code, title, genre, release_year) VALUES ('F001', 'REGULAR', 'You''ve Got Mail', 'Drama', 1999);
+            INSERT INTO movie (movie_id, movie_code, title, genre, release_year) VALUES ('F002', 'REGULAR', 'Matrix', 'Crime', 1999);
+            INSERT INTO movie (movie_id, movie_code, title, genre, release_year) VALUES ('F003', 'CHILDREN', 'Cars', 'Action', 2006);
+            INSERT INTO movie (movie_id, movie_code, title, genre, release_year) VALUES ('F004', 'NEW', 'Fast  Furious', 'Action', 2019);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
