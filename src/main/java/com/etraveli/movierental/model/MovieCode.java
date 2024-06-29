@@ -3,6 +3,8 @@ package com.etraveli.movierental.model;
 import com.etraveli.movierental.exception.ErrorCode;
 import com.etraveli.movierental.exception.MovieCodeNotFoundException;
 
+import java.util.Arrays;
+
 public enum MovieCode {
     REGULAR("regular"),
     NEW("new"),
@@ -19,11 +21,9 @@ public enum MovieCode {
     }
 
     public static MovieCode fromString(String code) {
-        for (MovieCode movieCode : MovieCode.values()) {
-            if (movieCode.getCodeValue().equals(code)) {
-                return movieCode;
-            }
-        }
-        throw new MovieCodeNotFoundException("Invalid movie code: " + code, ErrorCode.MOVIE_CODE_NOT_FOUND);
+        return Arrays.stream(MovieCode.values())
+                .filter(movieCode -> movieCode.getCodeValue().equals(code))
+                .findFirst()
+                .orElseThrow(() -> new MovieCodeNotFoundException("Invalid movie code: " + code, ErrorCode.MOVIE_CODE_NOT_FOUND));
     }
 }
