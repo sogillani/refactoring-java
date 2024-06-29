@@ -57,23 +57,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  delete:
-    summary: Delete a movie
-    parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-    responses:
-      '204':
-        description: Movie deleted successfully
-      '404':
-        description: Movie not found
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a movie
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Movie deleted successfully
+        '404':
+          description: Movie not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
     put:
       summary: Update a movie
